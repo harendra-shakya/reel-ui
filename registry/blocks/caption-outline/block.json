@@ -1,0 +1,1 @@
+{"desc": "Outline captions: white text, black stroke, no box", "example": {"captions": [{"end": 2, "start": 0, "style": "outline", "text": "no box, just punch"}]}, "props": {"style": "outline"}}

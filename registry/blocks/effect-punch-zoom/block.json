@@ -1,0 +1,1 @@
+{"desc": "Crash-zoom (zoom-blur) or static punch-in jump on a clip", "example": {"tracks": [{"dur": 2, "effect": "zoom-blur", "kind": "image", "src": "assets://still.jpg", "start": 0}]}, "props": {"effect": "zoom-blur | punch-in | flash"}}

@@ -1,0 +1,1 @@
+{"desc": "Neon highlight captions (cyan box, black text)", "example": {"captions": [{"end": 2, "start": 0, "style": "neon", "text": "big energy only"}]}, "props": {"style": "neon | outline | memo | minimal"}}

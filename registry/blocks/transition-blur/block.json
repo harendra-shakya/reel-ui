@@ -1,0 +1,1 @@
+{"desc": "Blur-cross (hblur) + fadegrays for soft edits", "example": {"transitions": [{"at": 3, "dur": 0.5, "type": "hblur"}]}, "props": {"at": "timeline seconds of the cut", "dur": "overlap seconds", "type": "hblur (+ any ffmpeg xfade name)"}}

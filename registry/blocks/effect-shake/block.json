@@ -1,0 +1,1 @@
+{"desc": "Handheld shake wobble on any clip", "example": {"tracks": [{"dur": 2, "effect": "shake", "kind": "video", "src": "assets://clip.mp4", "start": 0}]}, "props": {"effect": "shake"}}

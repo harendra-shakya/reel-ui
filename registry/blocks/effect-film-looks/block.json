@@ -1,0 +1,1 @@
+{"desc": "Film grain or VHS retro treatment on a clip", "example": {"tracks": [{"dur": 3, "effect": "film-grain", "kind": "video", "src": "assets://clip.mp4", "start": 0}]}, "props": {"effect": "film-grain | vhs"}}

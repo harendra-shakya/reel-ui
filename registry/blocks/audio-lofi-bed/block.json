@@ -1,0 +1,1 @@
+{"desc": "Low lo-fi bed that never ducks (ambient mixes)", "example": {"audio": {"duck": false, "fadeOut": 2, "music": "assets://lofi.mp3", "musicDb": -26}}, "props": {"music": "bed file", "musicDb": "bed level dB", "fadeOut": "outro fade seconds"}}

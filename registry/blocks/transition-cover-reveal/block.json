@@ -1,0 +1,1 @@
+{"desc": "Push-and-cover / reveal news-style cuts", "example": {"transitions": [{"at": 3, "dur": 0.5, "type": "coverleft"}]}, "props": {"at": "timeline seconds of the cut", "dur": "overlap seconds", "type": "coverleft (+ any ffmpeg xfade name)"}}

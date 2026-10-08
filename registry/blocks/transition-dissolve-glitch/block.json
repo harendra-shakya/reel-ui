@@ -1,0 +1,1 @@
+{"desc": "Dissolve / pixelize glitch / fadeblack-white", "example": {"transitions": [{"at": 3, "dur": 0.5, "type": "dissolve"}]}, "props": {"at": "timeline seconds of the cut", "dur": "overlap seconds", "type": "dissolve (+ any ffmpeg xfade name)"}}

@@ -1,0 +1,1 @@
+{"desc": "Top-anchored chapter / quote title cards", "example": {"titles": [{"end": 3, "start": 0, "style": "chapter", "text": "CHAPTER 2"}]}, "props": {"style": "chapter | quote"}}

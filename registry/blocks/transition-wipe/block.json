@@ -1,0 +1,1 @@
+{"desc": "Wipe family (wipeleft/right/up/down + smooth variants)", "example": {"transitions": [{"at": 3, "dur": 0.5, "type": "wipeleft"}]}, "props": {"at": "timeline seconds of the cut", "dur": "overlap seconds", "type": "wipeleft (+ any ffmpeg xfade name)"}}

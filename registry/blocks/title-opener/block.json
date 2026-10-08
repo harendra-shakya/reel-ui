@@ -1,0 +1,1 @@
+{"desc": "Cold-open title card (opener) + end-card (closer) titles", "example": {"titles": [{"end": 2, "start": 0, "style": "opener", "text": "EPISODE 12"}]}, "props": {"style": "opener | closer | quote | chapter"}}
