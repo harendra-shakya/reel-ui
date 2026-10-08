@@ -1,0 +1,1 @@
+{"bin": {"reel": "./src/cli.js"}, "description": "shadcn for video editing: copy-paste blocks, templates and styles that compile a JSON timeline to ffmpeg. Built for agents.", "license": "MIT", "name": "reel-ui", "scripts": {"render": "node src/cli.js render", "test": "node --test test/"}, "type": "module", "version": "0.1.0"}
