@@ -6,11 +6,10 @@ export function escDrawText(s) {
     .replace(/\\/g, "\\\\")
     .replace(/'/g, "\\'")
     .replace(/:/g, "\\:")
-    .replace(/%/g, "\\%")
-    .replace(/\n/g, " ");
+    .replace(/%/g, "\\%");
 }
 
-/** Greedy word-wrap to maxChars per line. */
+/** Greedy word-wrap to maxChars per line. Returns ALL lines (renderer stacks them). */
 export function wrapWords(text, maxChars = 22) {
   const words = String(text).split(/\s+/).filter(Boolean);
   const lines = [];
@@ -24,5 +23,5 @@ export function wrapWords(text, maxChars = 22) {
     }
   }
   if (cur) lines.push(cur);
-  return lines.slice(0, 2); // ponytail: max 2 lines, add marquee scroll if longer captions matter
+  return lines.length ? lines : [""];
 }

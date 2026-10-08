@@ -20,10 +20,70 @@ export function resolveFont() {
 
 const GRADES = {
   "none": "",
+  // warm / cinematic
   "teal-orange": "eq=saturation=1.2:contrast=1.05,colorbalance=rs=.15:gs=-.05:bs=-.15:rm=.1:gm=0:bm=-.1",
-  "noir": "hue=s=0,eq=contrast=1.1:brightness=-0.02",
   "warm-fade": "curves=all='0/0.08 1/0.95',eq=saturation=1.1:contrast=0.95:brightness=0.03",
+  "golden": "eq=saturation=1.25:contrast=1.03:brightness=0.02,colorbalance=rs=.2:gs=.08:bs=-.12",
+  "sunset": "eq=saturation=1.35:contrast=1.08,colorbalance=rs=.25:bs=-.1:rm=.12",
+  // cool / moody
+  "noir": "hue=s=0,eq=contrast=1.1:brightness=-0.02",
+  "cyber": "eq=saturation=1.4:contrast=1.1,colorbalance=gs=.15:bs=.2:rs=-.1",
+  "arctic": "eq=saturation=0.85:contrast=1.05:brightness=0.05,colorbalance=bs=.15:rs=-.08",
+  "midnight": "eq=saturation=0.9:contrast=1.15:brightness=-0.04,colorbalance=bs=.12:rs=-.05",
+  // clean / social
+  "vivid": "eq=saturation=1.5:contrast=1.08",
+  "pastel": "eq=saturation=0.75:contrast=0.92:brightness=0.06",
+  "mono-soft": "hue=s=0.15,eq=contrast=1.02",
+  "vintage": "curves=all='0/0.1 0.5/0.55 1/0.9',eq=saturation=0.8:contrast=0.95,colorbalance=rs=.1:bs=-.08",
 };
+
+/** xfade names this ffmpeg accepts (from `ffmpeg -h filter=xfade`); unknown -> fade. */
+const XFADES = new Set(("fade,wipeleft,wiperight,wipeup,wipedown,slideleft,slideright,slideup,slidedown,circlecrop,rectcrop,distance,fadeblack,fadewhite,radial,smoothleft,smoothright,smoothup,smoothdown,circleopen,circleclose,vertopen,vertclose,horzopen,horzclose,dissolve,pixelize,diagtl,diagtr,diagbl,diagbr,hlslice,hrslice,vuslice,vdslice,hblur,fadegrays,wipetl,wipetr,wipebl,wipebr,squeezeh,squeezev,zoomin,fadefast,fadeslow,hlwind,hrwind,vuwind,vdwind,coverleft,coverright,coverup,coverdown,revealleft,revealright,revealup,revealdown").split(","));
+/** Friendly aliases agents may use -> real xfade names. */
+const XFADE_ALIAS = { xfade: "fade", zoom: "zoomin", slide: "slideleft", wipe: "wipeleft", iris: "circleopen", blur: "hblur", glitch: "pixelize", reveal: "revealleft", cover: "coverleft" };
+const xfadeOf = (t) => XFADES.has(t) ? t : (XFADE_ALIAS[t] || "fade");
+
+/** Caption look per style: size rel to H, box, color. */
+const CAPTIONS = {
+  pop: { div: 28, box: ":box=1:boxcolor=black@0.6:boxborderw=24", color: "white" },
+  karaoke: { div: 26, box: ":box=1:boxcolor=0xFACC15@0.9:boxborderw=20", color: "black" },
+  minimal: { div: 30, box: "", color: "white" },
+  neon: { div: 26, box: ":box=1:boxcolor=0x00E5FF@0.85:boxborderw=20", color: "black" },
+  outline: { div: 27, box: "", color: "white" },
+  memo: { div: 30, box: ":box=1:boxcolor=white@0.92:boxborderw=26", color: "black" },
+};
+/** Title look per style: size rel to H, y anchor, box, color. */
+const TITLES = {
+  hero: { div: 11, y: "(h-text_h)/2-80", box: "", color: "white" },
+  "lower-third": { div: 18, y: "h-420", box: ":box=1:boxcolor=black@0.65:boxborderw=30", color: "white" },
+  opener: { div: 13, y: "(h-text_h)/2", box: ":box=1:boxcolor=black@0.55:boxborderw=28", color: "white" },
+  closer: { div: 14, y: "(h-text_h)/2", box: "", color: "0xFACC15" },
+  quote: { div: 16, y: "(h-text_h)/2-40", box: "", color: "white" },
+  chapter: { div: 20, y: "320", box: ":box=1:boxcolor=black@0.6:boxborderw=24", color: "white" },
+};
+
+/** Still motion (zoompan) or clip treatment for `effect`. Returns filter string or "". */
+function clipEffect(effect, dur, fps, W, H) {
+  const frames = Math.max(1, Math.round(dur * fps));
+  switch (effect) {
+    case "kenburns-in": case "kenburns-out": case "pan-left": case "pan-right":
+      return kenburns(effect, dur, fps, W, H);
+    case "zoom-blur": // punch-in ramp: quick zoom then hold (reads as crash-zoom)
+      return `zoompan=z='min(1.0+1.2*on/${frames},1.6)':d=${frames}:s=${W}x${H}:x='(iw-iw/zoom)/2':y='(ih-ih/zoom)/2':fps=${fps}`;
+    case "shake": // handheld wobble via crop offsets
+      return `scale=${W + 60}:${H + 60},crop=${W}:${H}:'(in_w-out_w)/2+20*sin(2*PI*t*3)':'(in_h-out_h)/2+14*cos(2*PI*t*2.3)'`;
+    case "punch-in": // static jump closer
+      return `scale=${W * 1.35}:${H * 1.35},crop=${W}:${H}`;
+    case "flash": // hot white flash at head of clip
+      return `eq=brightness='0.6*max(0,1-t*6)':saturation='1+0.5*max(0,1-t*6)'`;
+    case "film-grain": // light grain
+      return `noise=alls=8:allf=t,eq=contrast=1.03:saturation=0.95`;
+    case "vhs": // chroma punch + tracking wobble feel
+      return `curves=all='0/0.05 1/0.95',eq=saturation=1.3:contrast=1.05,noise=alls=10:allf=t,setsar=1`;
+    default:
+      return "";
+  }
+}
 
 /** Kenburns zoompan expr for a still of `dur` seconds at `fps`. */
 function kenburns(effect, dur, fps, W, H) {
@@ -55,10 +115,11 @@ export function buildFilterGraph(tl, { font } = {}) {
   });
   if (tl.audio.music) { inputs.push("-stream_loop", "-1", "-i", tl.audio.music); }
 
-  // Per-clip video prep: scale/crop + still motion.
+  // Per-clip video prep: scale/crop + motion/treatment effect.
   tl.tracks.forEach((c, i) => {
     let v = `[${i}:v]scale=${W}:${H}:force_original_aspect_ratio=increase,crop=${W}:${H},setsar=1,fps=${fps}`;
-    if (c.kind !== "video" && c.effect && c.effect !== "none") v += `,${kenburns(c.effect, c.dur, fps, W, H)}`;
+    const fx = c.effect && c.effect !== "none" ? clipEffect(c.effect, c.dur, fps, W, H) : "";
+    if (fx) v += `,${fx}`;
     v += `,settb=AVTB[v${i}]`;
     chains.push(v);
   });
@@ -71,7 +132,7 @@ export function buildFilterGraph(tl, { font } = {}) {
     tl.transitions.slice(0, tl.tracks.length - 1).forEach((tr, k) => {
       const d = Math.min(tr.dur, 1);
       const off = Math.max(0, end - d);
-      const xf = tr.type === "zoom" ? "circleopen" : tr.type === "slide" ? "slideleft" : "fade"; // ponytail: xfade has no zoom; circleopen iris reads as zoom-in
+      const xf = xfadeOf(tr.type); // unknown names fall back to fade
       chains.push(`${vOut}[v${k + 1}]xfade=transition=${xf}:duration=${d}:offset=${off}[x${k}]`);
       vOut = `[x${k}]`;
       end = end + (tl.tracks[k + 1].dur - d); // next end minus overlap
@@ -88,17 +149,20 @@ export function buildFilterGraph(tl, { font } = {}) {
   const grade = GRADES[tl.grade] || "";
   if (grade) { chains.push(`${tail}${grade}[g]`); tail = "[g]"; }
 
-  // Captions + titles as drawtext overlays.
+  // Captions + titles as drawtext overlays (multi-line: stacked drawtexts, size rhythm).
   const overlays = [...tl.captions.map((c) => ({ ...c, kind: "cap" })), ...tl.titles.map((t) => ({ ...t, kind: "title" }))];
   overlays.forEach((o, k) => {
     const isTitle = o.kind === "title";
-    const size = isTitle ? Math.round(H / 11) : Math.round(H / 28);
-    const y = isTitle ? "(h-text_h)/2-80" : "h-280";
-    const box = isTitle ? "" : ":box=1:boxcolor=black@0.6:boxborderw=24";
+    const look = isTitle ? (TITLES[o.style] || TITLES.hero) : (CAPTIONS[o.style] || CAPTIONS.pop);
+    const size = Math.round(H / look.div);
+    const yBase = isTitle ? look.y : "h-340";
+    const extra = (!isTitle && o.style === "outline") ? ":borderw=3:bordercolor=black" : "";
     const lines = isTitle ? [o.text, o.sub].filter(Boolean) : wrapWords(o.text);
-    const txt = escDrawText(lines.join(isTitle ? "\\n" : " "));
-    chains.push(`${tail}drawtext=fontfile=${ff}:text='${txt}':fontsize=${size}:fontcolor=white${box}:x=(w-text_w)/2:y=${y}:enable='between(t,${o.start},${o.end})'[t${k}]`);
-    tail = `[t${k}]`;
+    lines.forEach((line, li) => {
+      const y = `(${yBase})+${li * Math.round(size * 1.35)}`;
+      chains.push(`${tail}drawtext=fontfile=${ff}:text='${escDrawText(line)}':fontsize=${size}:fontcolor=${look.color}${look.box}${extra}:x=(w-text_w)/2:y=${y}:enable='between(t,${o.start},${o.end})'[t${k}_${li}]`);
+      tail = `[t${k}_${li}]`;
+    });
   });
   chains.push(`${tail}format=yuv420p,drawbox=c=${bg}:t=fill[vout]`);
 
