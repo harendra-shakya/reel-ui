@@ -35,17 +35,27 @@ h2 { margin-top: 2.5rem; }
 node src/cli.js list
 node src/cli.js add template talking-head
 node src/cli.js render timelines/my.json -o out.mp4</code></pre>
-
-<h2 id="blocks">Blocks</h2>
 <div class="grid">
   <div class="card"><b>caption-word-pop</b><span>punchy pop captions, fade per line</span></div>
   <div class="card"><b>caption-karaoke</b><span>line-level highlight swap</span></div>
+  <div class="card"><b>caption-neon</b><span>cyan-box hype captions</span></div>
+  <div class="card"><b>caption-outline</b><span>stroked text, no box</span></div>
   <div class="card"><b>title-hero</b><span>giant hook / CTA headline</span></div>
   <div class="card"><b>title-lower-third</b><span>speaker name card</span></div>
-  <div class="card"><b>transition-xfade-zoom</b><span>zoom-feel crossfade</span></div>
-  <div class="card"><b>transition-slide</b><span>slide-left push</span></div>
+  <div class="card"><b>title-opener</b><span>cold-open / end-card</span></div>
+  <div class="card"><b>title-chapter-card</b><span>chapter / quote cards</span></div>
+  <div class="card"><b>transition-wipe</b><span>wipe + smooth family</span></div>
+  <div class="card"><b>transition-dissolve-glitch</b><span>dissolve / pixelize</span></div>
+  <div class="card"><b>transition-blur</b><span>soft blur crosses</span></div>
+  <div class="card"><b>transition-cover-reveal</b><span>news-style push cuts</span></div>
+  <div class="card"><b>transition-xfade-zoom</b><span>zoom-in iris cross</span></div>
+  <div class="card"><b>transition-slide</b><span>slide push</span></div>
   <div class="card"><b>effect-kenburns</b><span>slow zoom / pan on stills</span></div>
+  <div class="card"><b>effect-shake</b><span>handheld wobble</span></div>
+  <div class="card"><b>effect-punch-zoom</b><span>crash-zoom / flash</span></div>
+  <div class="card"><b>effect-film-looks</b><span>grain / VHS retro</span></div>
   <div class="card"><b>audio-duck-narrate</b><span>ducking music bed</span></div>
+  <div class="card"><b>audio-lofi-bed</b><span>ambient non-ducking bed</span></div>
 </div>
 
 <h2>Templates</h2>
@@ -54,6 +64,11 @@ node src/cli.js render timelines/my.json -o out.mp4</code></pre>
 <tr><td>talking-head</td><td>commentary / reaction</td><td>warm-fade, pop captions</td></tr>
 <tr><td>product-teaser</td><td>hook → features → CTA</td><td>teal-orange, zoom cuts</td></tr>
 <tr><td>quote-card</td><td>single quote still</td><td>noir, slow zoom</td></tr>
+<tr><td>tutorial-howto</td><td>step-by-step how-to</td><td>arctic, chapter bug</td></tr>
+<tr><td>travel-recap</td><td>photo montage</td><td>golden, dissolves</td></tr>
+<tr><td>unboxing</td><td>box → reveal → verdict</td><td>vivid, shake + punch</td></tr>
+<tr><td>fitness-transformation</td><td>before → after arc</td><td>sunset, fadeblack beat</td></tr>
+<tr><td>podcast-clip</td><td>two-speaker highlight</td><td>pastel, memo captions</td></tr>
 </table>
 
 <h2>Styles</h2>
@@ -61,8 +76,17 @@ node src/cli.js render timelines/my.json -o out.mp4</code></pre>
 <tr><th>Grade</th><th>Feel</th></tr>
 <tr><td>none</td><td>source look</td></tr>
 <tr><td>teal-orange</td><td>blockbuster punch</td></tr>
-<tr><td>noir</td><td>black &amp; white</td></tr>
 <tr><td>warm-fade</td><td>soft vintage wash</td></tr>
+<tr><td>golden</td><td>golden-hour glow</td></tr>
+<tr><td>sunset</td><td>hot dusk tones</td></tr>
+<tr><td>noir</td><td>black &amp; white</td></tr>
+<tr><td>cyber</td><td>night-city neon cast</td></tr>
+<tr><td>arctic</td><td>cold nordic blues</td></tr>
+<tr><td>midnight</td><td>crushed night blue</td></tr>
+<tr><td>vivid</td><td>hyper-saturated pop</td></tr>
+<tr><td>pastel</td><td>soft beauty wash</td></tr>
+<tr><td>mono-soft</td><td>near-mono whisper</td></tr>
+<tr><td>vintage</td><td>faded film stock</td></tr>
 </table>
 
 <h2>Timeline IR</h2>

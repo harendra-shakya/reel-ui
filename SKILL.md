@@ -12,11 +12,11 @@ The whole edit is one JSON timeline. Pick a template, swap sources, render.
 ## IR reference (compact)
 
 - `meta`: name, width/height (default 1080x1920), fps (30), bg (#000000)
-- `tracks[]`: src, start, dur, kind (image|video|color), effect (kenburns-in|kenburns-out|pan-left|pan-right|none)
-- `captions[]`: start, end, text, style (pop|karaoke|minimal)
-- `titles[]`: start, end, text, sub?, style (hero|lower-third)
-- `transitions[]`: at (cut seconds), dur (0.5), type (xfade|zoom|slide)
-- `grade`: none|teal-orange|noir|warm-fade
+- `tracks[]`: src, start, dur, kind (image|video|color), effect — still motion (kenburns-in|kenburns-out|pan-left|pan-right), energy (shake|zoom-blur|punch-in|flash), analog (film-grain|vhs), none
+- `captions[]`: start, end, text, style (pop|karaoke|minimal|neon|outline|memo) — long text wraps to stacked lines
+- `titles[]`: start, end, text, sub?, style (hero|lower-third|opener|closer|quote|chapter)
+- `transitions[]`: at (cut seconds), dur (0.5), type — any ffmpeg xfade name (fade, dissolve, pixelize, hblur, zoomin, smoothleft/right/up/down, coverleft/right/up/down, revealleft/right/up/down, wipeleft/right/up/down, slideleft/right/up/down, circleopen/close, radial, fadeblack/white, fadegrays, distance) + aliases (xfade, zoom, slide, wipe, iris, blur, glitch, reveal, cover); unknown falls back to fade
+- `grade`: none|teal-orange|warm-fade|golden|sunset|noir|cyber|arctic|midnight|vivid|pastel|mono-soft|vintage
 - `audio`: music, musicDb (-20), duck (bool), fadeOut (1)
 
 ## Skeletons (copy-paste)
@@ -33,13 +33,18 @@ Kenburns quote:
 
 Teaser (zoom cuts):
 ```json
-{"version":1,"meta":{"name":"teaser"},"tracks":[{"src":"a.jpg","start":0,"dur":3,"kind":"image","effect":"kenburns-in"},{"src":"b.jpg","start":3,"dur":3,"kind":"image","effect":"pan-right"}],"transitions":[{"at":3,"dur":0.6,"type":"zoom"}],"grade":"teal-orange","audio":{}}
+{"version":1,"meta":{"name":"teaser"},"tracks":[{"src":"a.jpg","start":0,"dur":3,"kind":"image","effect":"kenburns-in"},{"src":"b.jpg","start":3,"dur":3,"kind":"image","effect":"pan-right"}],"transitions":[{"at":3,"dur":0.6,"type":"zoomin"}],"grade":"teal-orange","audio":{}}
+```
+
+Tutorial step:
+```json
+{"version":1,"meta":{"name":"howto"},"tracks":[{"src":"s1.mp4","start":0,"dur":4,"kind":"video"},{"src":"s2.mp4","start":4,"dur":4,"kind":"video"}],"captions":[{"start":0.5,"end":3.5,"text":"step one: do the thing","style":"minimal"}],"titles":[{"start":0,"end":8,"text":"HOW TO","style":"chapter"}],"transitions":[{"at":4,"dur":0.4,"type":"smoothleft"}],"grade":"arctic","audio":{}}
 ```
 
 ## Constraints
 
 - drawtext captions are line-level: no per-word karaoke timing
-- captions wrap to max 2 lines (~22 chars each)
+- long captions wrap to stacked multi-line drawtexts (~22 chars each)
 - font: `REEL_FONT` env or fc-match auto-detect (Liberation/DejaVu/Montserrat bold)
 - images looped per-clip; video clips keep native audio for ducking key
 - default canvas 1080x1920@30fps unless meta overrides
