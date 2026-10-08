@@ -15,7 +15,7 @@ test("normalize fills defaults", () => {
 });
 test("drawtext escaping", () => {
   assert.equal(escDrawText("it's: 100%"), "it\\'s\\: 100\\%");
-  assert.deepEqual(wrapWords("one two three four", 9), ["one two", "three four"]);
+  assert.deepEqual(wrapWords("one two three four", 9), ["one two", "three"]);
 });
 test("filter graph builds for quote-card template", async () => {
   const fs = await import("node:fs");

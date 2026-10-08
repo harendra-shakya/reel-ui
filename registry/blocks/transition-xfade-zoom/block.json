@@ -1,1 +1,1 @@
-{"desc": "Zoom-feel crossfade between clips (smoothzoom xfade)", "example": {"transitions": [{"at": 3, "dur": 0.6, "type": "zoom"}]}, "props": {"at": "timeline seconds of the cut", "dur": "overlap seconds", "type": "zoom"}}
+{"desc": "Zoom-feel crossfade between clips (iris xfade; ffmpeg xfade has no true zoom)", "example": {"transitions": [{"at": 3, "dur": 0.6, "type": "zoom"}]}, "props": {"at": "timeline seconds of the cut", "dur": "overlap seconds", "type": "zoom"}}

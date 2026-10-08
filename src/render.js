@@ -71,7 +71,7 @@ export function buildFilterGraph(tl, { font } = {}) {
     tl.transitions.slice(0, tl.tracks.length - 1).forEach((tr, k) => {
       const d = Math.min(tr.dur, 1);
       const off = Math.max(0, end - d);
-      const xf = tr.type === "zoom" ? "smoothzoom" : tr.type === "slide" ? "slideleft" : "fade";
+      const xf = tr.type === "zoom" ? "circleopen" : tr.type === "slide" ? "slideleft" : "fade"; // ponytail: xfade has no zoom; circleopen iris reads as zoom-in
       chains.push(`${vOut}[v${k + 1}]xfade=transition=${xf}:duration=${d}:offset=${off}[x${k}]`);
       vOut = `[x${k}]`;
       end = end + (tl.tracks[k + 1].dur - d); // next end minus overlap

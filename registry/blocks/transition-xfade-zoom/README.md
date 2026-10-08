@@ -1,1 +1,1 @@
-# transition-xfade-zoom — zoom-feel crossfade. Props: `at`, `dur`. Preview: outgoing clip scales up as incoming fades in.
+# transition-xfade-zoom — zoom-feel crossfade (iris open; xfade has no true zoom). Props: `at`, `dur`. Preview: incoming clip irises open over outgoing.
