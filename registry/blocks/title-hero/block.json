@@ -1,0 +1,1 @@
+{"desc": "Big centered hero title + subtitle for hooks and CTAs", "example": {"titles": [{"end": 2, "start": 0, "style": "hero", "sub": "in 20 seconds", "text": "STOP SCROLLING"}]}, "props": {"style": "hero", "sub": "optional subtitle", "text": "headline"}}

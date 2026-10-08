@@ -1,0 +1,1 @@
+[{"audio": {"duck": false, "fadeOut": 0.5, "musicDb": -8}, "desc": "Narration-forward: bed sits low, no pumping", "name": "voice-boost"}, {"audio": {"duck": true, "fadeOut": 1, "musicDb": -20}, "desc": "Vlog bed that ducks under speech", "name": "music-bed-duck"}, {"audio": {}, "desc": "No music, room tone only", "name": "silent-vlog"}]

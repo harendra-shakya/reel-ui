@@ -1,0 +1,1 @@
+{"desc": "Punchy word-by-word pop captions with fade in/out per line", "example": {"captions": [{"end": 2.2, "start": 0.2, "style": "pop", "text": "this changes everything"}, {"end": 4.4, "start": 2.4, "style": "pop", "text": "watch till the end"}]}, "props": {"style": "pop", "window": "start/end seconds per line"}}

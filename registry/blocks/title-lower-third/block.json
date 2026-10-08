@@ -1,0 +1,1 @@
+{"desc": "Lower-third name/title card for speakers and guests", "example": {"titles": [{"end": 4, "start": 0.5, "style": "lower-third", "sub": "video essayist", "text": "Jane Doe"}]}, "props": {"style": "lower-third", "sub": "role", "text": "name"}}

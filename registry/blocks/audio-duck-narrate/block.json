@@ -1,0 +1,1 @@
+{"desc": "Music bed that ducks under narration and fades out", "example": {"audio": {"duck": true, "fadeOut": 1, "music": "assets://bed.mp3", "musicDb": -20}}, "props": {"duck": "sidechain-compress under clip audio", "fadeOut": "outro fade seconds", "music": "bed file", "musicDb": "bed level dB"}}

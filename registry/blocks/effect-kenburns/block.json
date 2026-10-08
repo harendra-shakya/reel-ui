@@ -1,0 +1,1 @@
+{"desc": "Slow Ken Burns zoom/pan on stills (zoompan)", "example": {"tracks": [{"dur": 3, "effect": "kenburns-in", "kind": "image", "src": "assets://cover.jpg", "start": 0}]}, "props": {"effect": "kenburns-in | kenburns-out | pan-left | pan-right"}}

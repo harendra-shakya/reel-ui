@@ -1,0 +1,1 @@
+{"desc": "Slide-left transition pushing the old clip off frame", "example": {"transitions": [{"at": 5, "dur": 0.5, "type": "slide"}]}, "props": {"at": "timeline seconds of the cut", "dur": "overlap seconds", "type": "slide"}}
