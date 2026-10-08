@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>reel-ui — shadcn for video editing</title>
+<style>
+:root { color-scheme: light dark; --bd: #e5e5e5; --mut: #737373; }
+body { font-family: ui-sans-serif, system-ui, sans-serif; max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; line-height: 1.6; }
+.hero { border: 1px solid var(--bd); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+.hero h1 { margin: 0 0 .25rem; font-size: 2rem; letter-spacing: -.02em; }
+.hero p { color: var(--mut); margin: .25rem 0 1rem; }
+.btn { display: inline-block; padding: .5rem 1rem; border-radius: 8px; border: 1px solid var(--bd); text-decoration: none; color: inherit; margin-right: .5rem; }
+pre { background: #111; color: #eee; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: .82rem; }
+code { font-family: ui-monospace, monospace; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { text-align: left; padding: .5rem; border-bottom: 1px solid var(--bd); }
+h2 { margin-top: 2.5rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+.card { border: 1px solid var(--bd); border-radius: 8px; padding: .75rem 1rem; }
+.card b { display: block; } .card span { color: var(--mut); font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>reel-ui</h1>
+  <p>shadcn for video editing. Copy a block, paste into a JSON timeline, render with ffmpeg. Built for agents.</p>
+  <a class="btn" href="#quickstart">Quickstart</a>
+  <a class="btn" href="#blocks">Blocks</a>
+  <a class="btn" href="#agents">Agents</a>
+</div>
+
+<h2 id="quickstart">Quickstart</h2>
+<pre><code>node src/cli.js init
+node src/cli.js list
+node src/cli.js add template talking-head
+node src/cli.js render timelines/my.json -o out.mp4</code></pre>
+
+<h2 id="blocks">Blocks</h2>
+<div class="grid">
+  <div class="card"><b>caption-word-pop</b><span>punchy pop captions, fade per line</span></div>
+  <div class="card"><b>caption-karaoke</b><span>line-level highlight swap</span></div>
+  <div class="card"><b>title-hero</b><span>giant hook / CTA headline</span></div>
+  <div class="card"><b>title-lower-third</b><span>speaker name card</span></div>
+  <div class="card"><b>transition-xfade-zoom</b><span>zoom-feel crossfade</span></div>
+  <div class="card"><b>transition-slide</b><span>slide-left push</span></div>
+  <div class="card"><b>effect-kenburns</b><span>slow zoom / pan on stills</span></div>
+  <div class="card"><b>audio-duck-narrate</b><span>ducking music bed</span></div>
+</div>
+
+<h2>Templates</h2>
+<table>
+<tr><th>Name</th><th>Use</th><th>Look</th></tr>
+<tr><td>talking-head</td><td>commentary / reaction</td><td>warm-fade, pop captions</td></tr>
+<tr><td>product-teaser</td><td>hook → features → CTA</td><td>teal-orange, zoom cuts</td></tr>
+<tr><td>quote-card</td><td>single quote still</td><td>noir, slow zoom</td></tr>
+</table>
+
+<h2>Styles</h2>
+<table>
+<tr><th>Grade</th><th>Feel</th></tr>
+<tr><td>none</td><td>source look</td></tr>
+<tr><td>teal-orange</td><td>blockbuster punch</td></tr>
+<tr><td>noir</td><td>black &amp; white</td></tr>
+<tr><td>warm-fade</td><td>soft vintage wash</td></tr>
+</table>
+
+<h2>Timeline IR</h2>
+<pre><code>{
+  "version": 1,
+  "meta": { "name": "my-video", "width": 1080, "height": 1920, "fps": 30 },
+  "tracks": [{ "src": "clip.mp4", "start": 0, "dur": 4, "kind": "video" }],
+  "captions": [{ "start": 0, "end": 2, "text": "hook", "style": "pop" }],
+  "titles": [{ "start": 0, "end": 2, "text": "TITLE", "sub": "sub", "style": "hero" }],
+  "transitions": [{ "at": 4, "dur": 0.5, "type": "xfade" }],
+  "grade": "warm-fade",
+  "audio": { "music": "bed.mp3", "musicDb": -20, "duck": true, "fadeOut": 1 }
+}</code></pre>
+
+<h2 id="agents">Agents</h2>
+<p>Read <code>SKILL.md</code> in the repo root. Recipe: pick template → swap <code>tracks[].src</code> → rewrite captions → <code>node src/cli.js render</code>. Constraints: drawtext is line-level (no per-word karaoke), max 2 wrapped lines, 1080×1920 default, font via <code>REEL_FONT</code> or fc-match auto-detect.</p>
+</body>
+</html>
