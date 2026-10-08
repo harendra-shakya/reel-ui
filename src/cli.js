@@ -3,7 +3,6 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, readdirSync } from "node:fs";
 import { isTimeline, normalize } from "./schema.js";
 import { renderTimeline } from "./render.js";
-
 const REG = new URL("../registry.json", import.meta.url);
 
 function list() {
@@ -11,7 +10,10 @@ function list() {
   for (const [section, items] of Object.entries(reg)) {
     console.log(`\n## ${section}`);
     if (Array.isArray(items)) { for (const s of items) console.log(`  - ${s}`); continue; }
-    for (const [name, v] of Object.entries(items)) console.log(`  - ${name}: ${v.desc || v.file || ""}`);
+    for (const [k, v] of Object.entries(items)) {
+      if (Array.isArray(v)) { console.log(`  ${k}: ${v.join(", ")}`); continue; }
+      console.log(`  - ${k}: ${v.desc || v.file || ""}`);
+    }
   }
 }
 
