@@ -164,7 +164,7 @@ export function buildFilterGraph(tl, { font } = {}) {
       tail = `[t${k}_${li}]`;
     });
   });
-  chains.push(`${tail}format=yuv420p,drawbox=c=${bg}:t=fill[vout]`);
+  chains.push(`${tail}format=yuv420p[vout]`);
 
   // Audio: music bed + duck under narration (input 0 assumed narration when video clips have audio) + fade out.
   const aParts = [];
